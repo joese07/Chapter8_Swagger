@@ -1,0 +1,282 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Belajar Bikin Swagger",
+    "version": "1.0.0",
+    "description": "ini adalah sebuah aplikasi baru yang akan dibuat dengan tujuan pembelajaran"
+  },
+  "tags": [
+    {
+      "name": "Article",
+      "description": "Article Resources"
+    }
+  ],
+  "paths": {
+    "/articles": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "List All Available Articles",
+        "description": "Description for list article",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "Lorem Ipsum"
+                  },
+                  "body": {
+                    "type": "string",
+                    "example": "Dolor Sit Amet"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Add New Article",
+        "description": "Create New",
+        "security": [
+          {
+            "Token": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Article object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Lorem Ipsum"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Dolor sit Amet"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully crete new article",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Lorem Ipsum"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Dolor sit amet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "failed to create new article",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to create new article"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles/{articleId}": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Find article by ID",
+        "description": "Returns a single Article",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "articleId",
+            "description": "ID of article to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Lorem Ipsum"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Dolor sit amet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Edit data by ID",
+        "description": "Edit Data",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Article object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Lorem Ipsum"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Dolor sit Amet"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully Edit article",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Lorem Ipsum"
+                },
+                "body": {
+                  "type": "string",
+                  "example": "Dolor sit amet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "failed to edit article",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Failed to create new article"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Delete Data by ID",
+        "description": "Delete Data",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "ID of article to return",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete Successful"
+          },
+          "400": {
+            "description": "Delete Unsuccessful"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Token": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  }
+}
